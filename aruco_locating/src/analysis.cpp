@@ -30,10 +30,12 @@ bool Analysis::analysis(const FrameNumber frameNumber, std::unique_ptr<cv::Mat> 
 		_window.updateWindow(frame);
 		frame.show();
 		if (_isSnap) frame.saveImg();
+		frame.img.release();
 		stop = getCommand(frame);
 		_window.show();
 		if (_window.isFreezeViz = _isMonitor || _window.isFreezeViz) freezing(frame);
 	}
+	
 	recorder.addFrame(frame, _isParallel);
 	return stop;
 }
