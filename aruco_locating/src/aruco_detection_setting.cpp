@@ -5,10 +5,9 @@
 void ArucoDetectionSetting::setThreshParams(int _, void* arg) {
 	ArucoDetectionSetting* arucoDetectionSetter = static_cast<ArucoDetectionSetting*>(arg);
 	assert(arucoDetectionSetter != nullptr);
-	int adaptiveThreshBlockSize = Settings::adaptiveThreshBlockSize;
-	if (adaptiveThreshBlockSize % 2 == 0)adaptiveThreshBlockSize++;
-	if (Settings::adaptiveThreshBlockSize <= 2) adaptiveThreshBlockSize= 3;
-	cv::adaptiveThreshold(arucoDetectionSetter->gray, arucoDetectionSetter->thresholded, 255, cv::ADAPTIVE_THRESH_GAUSSIAN_C, cv::THRESH_BINARY_INV, adaptiveThreshBlockSize, Settings::adaptiveThreshC);
+	if (Settings::adaptiveThreshBlockSize % 2 == 0) Settings::adaptiveThreshBlockSize++;
+	if (Settings::adaptiveThreshBlockSize <= 2) Settings::adaptiveThreshBlockSize = 3;
+	cv::adaptiveThreshold(arucoDetectionSetter->gray, arucoDetectionSetter->thresholded, 255, cv::ADAPTIVE_THRESH_GAUSSIAN_C, cv::THRESH_BINARY_INV, Settings::adaptiveThreshBlockSize, Settings::adaptiveThreshC);
 	cv::findContours(arucoDetectionSetter->thresholded, arucoDetectionSetter->contours, arucoDetectionSetter->contourHierarchy, cv::RETR_TREE, cv::CHAIN_APPROX_SIMPLE);
 	arucoDetectionSetter->contoursImg=  cv::Mat(arucoDetectionSetter->thresholded.size(), CV_8UC3, cv::Scalar::all(0));
 	for (int i = 0; i < arucoDetectionSetter->contours.size(); i++) {
@@ -265,15 +264,15 @@ bool ArucoDetectionSetting::tune(const FrameNumber frameNumber, std::unique_ptr<
 		cv::cvtColor(masked, gray, cv::COLOR_BGR2GRAY);
 	}
 	else cv::cvtColor(this->img, gray, cv::COLOR_BGR2GRAY);
-	cv::namedWindow("thresholded");
+	cv::namedWindow("thresholded",0);
 	cv::createTrackbar("adaptiveThreshC",  "thresholded", &Settings::adaptiveThreshC, 50, ArucoDetectionSetting::setThreshParams,this);
 	cv::createTrackbar("adaptiveThreshBlocksizeRatio",  "thresholded", &Settings::adaptiveThreshBlockSize, 500, ArucoDetectionSetting::setThreshParams, this);
 	setThreshParams(0, this);
-	cv::namedWindow("polyFilteredImg");
+	cv::namedWindow("polyFilteredImg",0);
 	cv::createTrackbar("minAreaOfCandidateThresh",  "polyFilteredImg", &Settings::minArea, 10000, ArucoDetectionSetting::setPolyParams, this);
 	cv::createTrackbar("approxPolyDPEpsilon",  "polyFilteredImg", &Settings::approxPolyDPEpsilonRatio, 100, ArucoDetectionSetting::setPolyParams, this);
 	setPolyParams(0, this);
-	cv::namedWindow("cornerRefine");
+	cv::namedWindow("cornerRefine",0);
 	cv::createTrackbar("cornerRefineWinsizeRatio",  "cornerRefine", &Settings::cornerRefineWinsizeRatio, 100, ArucoDetectionSetting::setCornerRefineParams, this);
 	setCornerRefineParams(0, this);
 	int key=cv::waitKey(0);
