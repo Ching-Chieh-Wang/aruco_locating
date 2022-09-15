@@ -7,6 +7,13 @@
 *.rsuser
 *.suo
 *.user
+*.tiff
+*.dll
+*.png
+*.json
+*.MP4
+*.JPG
+*.csv
 *.userosscache
 *.sln.docstates
 
@@ -22,6 +29,10 @@ mono_crash.*
 [Rr]elease/
 [Rr]eleases/
 x64/
+aruco_locating/saved/
+aruco_locating/imgs/
+aruco_locating/imgsTemp/
+aruco_locating/videos/
 x86/
 [Ww][Ii][Nn]32/
 [Aa][Rr][Mm]/
