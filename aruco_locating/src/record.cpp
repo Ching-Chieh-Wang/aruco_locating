@@ -2,13 +2,19 @@
 
 
 
-void Record::addFrame(Frame& frame){
+void Record::addFrame(Frame& frame, const bool saveImg){
 	frames.emplace_back(std::move(frame));
+	if (saveImg)frame.saveImg();
+	else frame.img.release();
 }
 
-void Record::addFrame(Frame& frame, const bool isParallel) {
-	if (isParallel)	frames.at(frame.frameNumber) = std::move(frame);
-	else addFrame(frame);
+void Record::addFrame(Frame& frame, const bool saveImg, const bool isParallel) {
+	if (isParallel) {
+		if (saveImg) frame.saveImg();
+		else frame.img.release();
+		frames.at(frame.frameNumber) = std::move(frame);
+	}
+	else addFrame(frame, saveImg);
 }
 
 void Record::output(const std::string& name) const{

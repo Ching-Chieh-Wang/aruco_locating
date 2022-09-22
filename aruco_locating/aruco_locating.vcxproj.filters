@@ -18,12 +18,12 @@
     <ClCompile Include="aruco_locating.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\ArUcoLocating\ArUcoLocating\pch.cpp">
+    <ClCompile Include="pch.cpp">
       <Filter>資源檔</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\ArUcoLocating\ArUcoLocating\pch.h">
+    <ClInclude Include="pch.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>

@@ -18,6 +18,7 @@ void Frame::saveImg() {
 void Frame::saveImgThread(FrameNumber frameNumber, std::unique_ptr<cv::Mat> img) {
 	std::vector<int> tags = { cv::IMWRITE_TIFF_COMPRESSION, 1 };
 	cv::imwrite("imgs_temp/" + std::to_string((int)frameNumber) + ".tiff", *img, tags);
+	img.release();
 }
 
 void Frame::show() const {
