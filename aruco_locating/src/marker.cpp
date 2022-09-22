@@ -38,7 +38,7 @@ void Marker::show(cv::Mat& img) const{
 
 
 cv::Point3d Marker::worldCoordCenter() const{
-	return cv::Point3d(pose().translation());
+	return cv::Point3d(pose().inv().translation());
 }
 
 Clouds Marker::worldCoordCorners() const
