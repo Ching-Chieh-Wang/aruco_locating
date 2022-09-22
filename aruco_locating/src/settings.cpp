@@ -62,6 +62,7 @@ void Settings::save(const std::string& path){
 	saver["arucoDetection"]["detectRegions"] = saveDetectionRegions();
 	saver["poseEstimation"]["unambiguousErrorRaioThresh"] = unambiguousErrorRaioThresh;
 	saver["poseEstimation"]["projectionErrorThresh"] = projectionErrorThresh;
+	saver["dispBA"] = dispBA;
 	Json::StyledWriter sw;
 	std::ofstream jsonFile(_path, std::ios::out);
 	if (!jsonFile.is_open()) {
