@@ -35,6 +35,8 @@ aruco_locating/saved/
 aruco_locating/imgs/
 aruco_locating/imgsTemp/
 aruco_locating/videos/
+aruco_locating/aruco_locating.cpp
+aruco_locating/aruco_locating.vcxproj
 x86/
 [Ww][Ii][Nn]32/
 [Aa][Rr][Mm]/
