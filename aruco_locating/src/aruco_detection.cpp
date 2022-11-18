@@ -127,7 +127,7 @@ void ArucoDetection::detect(const cv::Mat & image, Markers& markers) {
 			MarkerId id = -1;
 			if ((id=idMatcher(warped, candidatef))==-1) continue;
 			Marker marker(id, Params::dictionary.markerSize(id), candidatef);
-			cv::undistortPoints(marker.corners, marker.corners, Params::kmat, Params::distmat, cv::noArray(),Params::undistKmat);
+			cv::undistortPoints(marker.corners, marker.corners, Params::kmat, Params::distmat,cv::noArray(),Params::kmat);
 			markers_private.emplace_back(marker);
 		}
 	#pragma omp critical

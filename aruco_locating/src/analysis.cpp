@@ -34,6 +34,7 @@ bool Analysis::analysis(const FrameNumber frameNumber, std::unique_ptr<cv::Mat> 
 		if (_window.isFreezeViz = _isMonitor || _window.isFreezeViz) freezing(frame);
 	}
 	recorder.addFrame(frame, _isSnap, _isParallel );
+	if(frame.img) frame.img.release();
 	return stop;
 }
 
@@ -67,10 +68,10 @@ void Analysis::BA(Frame& frame){
 		optimizer.addVertex(vSE3_marker);
 		for (int i = 0; i < 4; i++) {
 			g2o::EdgeSE3ProjectMarker* edge = new g2o::EdgeSE3ProjectMarker();
-			edge->fx = Params::undistKmat.at<double>(0, 0);
-			edge->fy = Params::undistKmat.at<double>(1, 1);
-			edge->cx = Params::undistKmat.at<double>(0, 2);
-			edge->cy = Params::undistKmat.at<double>(1, 2);
+			edge->fx = Params::kmat.at<double>(0, 0);
+			edge->fy = Params::kmat.at<double>(1, 1);
+			edge->cx = Params::kmat.at<double>(0, 2);
+			edge->cy = Params::kmat.at<double>(1, 2);
 			edge->setVertex(0, dynamic_cast<g2o::OptimizableGraph::Vertex*>(vSE3));
 			edge->setVertex(1, dynamic_cast<g2o::OptimizableGraph::Vertex*>(optimizer.vertex(vertexID)));
 			edge->setMeasurement(Eigen::Vector2d(marker.corners.at(i).x, marker.corners.at(i).y));
@@ -84,14 +85,17 @@ void Analysis::BA(Frame& frame){
 
 	optimizer.setVerbose(Settings::dispBA);
 	optimizer.initializeOptimization();
-	optimizer.optimize(99999);
+	optimizer.optimize(1500);
 
 	vertexID = 1;
 	for (auto& [id, marker] : frame.markers) {
 		if (Settings::dispBA)std::cout << "ID" << id << " Before:" << std::endl << marker.pose().matrix << std::endl;
+		std::cout << marker.err() << std::endl;
+		std::cout << marker.reprojectionError() << std::endl;
 		g2o::VertexSE3Expmap* pose = static_cast<g2o::VertexSE3Expmap*>(optimizer.vertex(vertexID++));
 		marker.pose() = SE3ToAffine(pose->estimate());
 		if (Settings::dispBA)std::cout << "ID" << id << " After:" << std::endl << marker.pose().matrix << std::endl;
+		std::cout << marker.err() << std::endl;
 	}
 	std::cout << std::endl;
 	
