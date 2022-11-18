@@ -17,9 +17,8 @@ void Front::run(const Source source, const std::string& sourcePath, const bool B
 		for (const auto& entry : std::filesystem::directory_iterator("imgs_temp"))
 			std::filesystem::remove_all(entry.path()); //remove all contents in imgs_temp folder
 	}
-
-
 	analyzer.run(source,sourcePath,parallel,monitor,BA);
+	std::cout << "Finished" << std::endl;
 }
 
 
@@ -40,6 +39,7 @@ void Front::save(const std::string path)  const{
 	std::filesystem::create_directory(savePath);
 	std::filesystem::create_directory(savePath + "/imgs");
 	analyzer.outputResults(savePath);
+	std::filesystem::copy_file("params.json", savePath+"/params.json", std::filesystem::copy_options::update_existing);
 }
 
 Front::Front(){
