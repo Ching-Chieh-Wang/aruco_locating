@@ -2,6 +2,7 @@
 #define MARKER_H
 class Marker :public PnPObj{
 private:
+	float _chi2 = -1;
 	cv::Affine3d _pose;
 	//查看前幾個frame中此marker的rvec,tvec
 	bool getPoseHistory(cv::Mat& guessRvec, cv::Mat& guessTvec) const;
@@ -9,6 +10,7 @@ private:
 	void solvePnP();
 	static std::unordered_map<MarkerId, std::pair<cv::Mat, cv::Mat>> markerTHistories;
 public:
+	float err() const;
 	inline cv::Affine3d& pose() {
 		return _pose;
 	}

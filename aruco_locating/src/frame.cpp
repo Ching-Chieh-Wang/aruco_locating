@@ -29,7 +29,7 @@ void Frame::show() const {
 	}
 	cv::putText(dispImg, imgName, cv::Point2i(50, 50),cv::FONT_HERSHEY_COMPLEX,2,cv::Scalar(100,125,50),4);
 	cv::namedWindow("video", 0);
-	static int memoryRows = 1500.f * img->rows / img->cols;
+	static int memoryRows = 1500.f / img->rows * img->cols;
 	cv::resizeWindow("video", 1500, memoryRows);
 	cv::imshow("video", dispImg);
 }

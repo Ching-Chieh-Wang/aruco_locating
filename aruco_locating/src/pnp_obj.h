@@ -24,6 +24,10 @@ public:
 	{
 		return _reprojectionErrors[smallerErrorIdx()];
 	}
+	inline const float reprojectionError(int idx) const
+	{
+		return _reprojectionErrors[idx];
+	}
 
 	inline int const smallerErrorIdx() const
 	{

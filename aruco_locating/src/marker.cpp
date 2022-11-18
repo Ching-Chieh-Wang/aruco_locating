@@ -17,10 +17,20 @@ bool Marker::getPoseHistory(cv::Mat& guessRvec, cv::Mat& guessTvec) const{
 
 void Marker::solvePnP(){
 	cv::Mat guessRvec, guessTvec;
-	if (getPoseHistory(guessRvec, guessTvec)) cv::solvePnPGeneric(markerCoordCorners(), corners, Params::undistKmat, cv::noArray(), _rvecs, _tvecs, true, cv::SOLVEPNP_IPPE_SQUARE, guessRvec, guessTvec, _reprojectionErrors);
-	else cv::solvePnPGeneric(markerCoordCorners(), corners, Params::undistKmat, cv::noArray(), _rvecs, _tvecs, true, cv::SOLVEPNP_IPPE_SQUARE, cv::noArray(), cv::noArray(), _reprojectionErrors); //先前已undistorted
+	if (getPoseHistory(guessRvec, guessTvec)) cv::solvePnPGeneric(markerCoordCorners(), corners, Params::kmat, cv::noArray(), _rvecs, _tvecs, true, cv::SOLVEPNP_IPPE_SQUARE, guessRvec, guessTvec, _reprojectionErrors);
+	else cv::solvePnPGeneric(markerCoordCorners(), corners, Params::kmat, cv::noArray(), _rvecs, _tvecs, true, cv::SOLVEPNP_IPPE_SQUARE, cv::noArray(), cv::noArray(), _reprojectionErrors); //先前已undistorted
 	markerTHistories[id].first = rvec();
 	markerTHistories[id].second = tvec();
+}
+
+float Marker::err() const{
+	float error = 0;
+	std::vector<cv::Point2d> estCorners;
+	cv::projectPoints(worldCoordCorners(), cv::Vec3d(0,0,0), cv::Vec3d(0, 0, 0), Params::kmat, cv::noArray(), estCorners);
+	for (int i = 0; i < 4; i++) {
+		error += pow(cv::norm(estCorners.at(i) - cv::Point2d(corners.at(i))), 2);
+	}
+	return sqrt(error/4);
 }
 
 void Marker::show(cv::Mat& img) const{
@@ -41,11 +51,10 @@ cv::Point3d Marker::worldCoordCenter() const{
 	return cv::Point3d(pose().inv().translation());
 }
 
-Clouds Marker::worldCoordCorners() const
-{
+Clouds Marker::worldCoordCorners() const{
 	Clouds cornersTemp;
 	for (const cv::Point3d& corner : markerCoordCorners()) {
-		cornersTemp.emplace_back(T() * corner);
+		cornersTemp.emplace_back(pose().inv() * corner);
 	}
 	return cornersTemp;
 }
