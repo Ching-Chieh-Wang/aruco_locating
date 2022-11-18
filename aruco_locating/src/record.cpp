@@ -4,8 +4,8 @@
 
 void Record::addFrame(Frame& frame, const bool saveImg){
 	frames.emplace_back(std::move(frame));
-	if (saveImg)frame.saveImg();
-	else frame.img.release();
+	if (saveImg)frames.back().saveImg();
+	else frames.back().img.release();
 }
 
 void Record::addFrame(Frame& frame, const bool saveImg, const bool isParallel) {
