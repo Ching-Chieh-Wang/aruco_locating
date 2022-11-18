@@ -90,12 +90,10 @@ void Analysis::BA(Frame& frame){
 	vertexID = 1;
 	for (auto& [id, marker] : frame.markers) {
 		if (Settings::dispBA)std::cout << "ID" << id << " Before:" << std::endl << marker.pose().matrix << std::endl;
-		std::cout << marker.err() << std::endl;
 		std::cout << marker.reprojectionError() << std::endl;
 		g2o::VertexSE3Expmap* pose = static_cast<g2o::VertexSE3Expmap*>(optimizer.vertex(vertexID++));
 		marker.pose() = SE3ToAffine(pose->estimate());
 		if (Settings::dispBA)std::cout << "ID" << id << " After:" << std::endl << marker.pose().matrix << std::endl;
-		std::cout << marker.err() << std::endl;
 	}
 	std::cout << std::endl;
 	
