@@ -3,15 +3,16 @@
 
 
 void Record::addFrame(Frame& frame, const bool saveImg){
+	if (saveImg)frame.saveImg();
+	else frame.img.reset();
 	frames.emplace_back(std::move(frame));
-	if (saveImg)frames.back().saveImg();
-	else frames.back().img.release();
+
 }
 
 void Record::addFrame(Frame& frame, const bool saveImg, const bool isParallel) {
 	if (isParallel) {
 		if (saveImg) frame.saveImg();
-		else frame.img.release();
+		else frame.img.reset();
 		frames.at(frame.frameNumber) = std::move(frame);
 	}
 	else addFrame(frame, saveImg);
