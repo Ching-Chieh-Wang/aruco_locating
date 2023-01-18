@@ -99,8 +99,8 @@ Json::Value Settings::saveDetectionRegions(){
 		Json::Value poly;
 		for (const cv::Point2i& point : detectionRegion) {
 			Json::Value pointJ;
-			pointJ.append(point.y);
 			pointJ.append(point.x);
+			pointJ.append(point.y);
 			poly.append(pointJ);
 		}
 		polys.append(poly);
