@@ -7,12 +7,8 @@ public:
 	bool tune(const FrameNumber frameNumber, std::unique_ptr<cv::Mat> img, const std::string& imgName);
 	Markers markers();
 private:
-	//原圖
+	//照片原圖
 	cv::Mat img;
-	//灰色圖
-	cv::Mat gray;
-	//邊緣圖
-	cv::Mat thresholded;
 	//偵測到的輪廓
 	cv::Mat contoursImg;
 	//角點定位優化結果
@@ -29,8 +25,7 @@ private:
 	static void setPolyParams(int ,void*);
 	//調整角點定位優化的搜索視窗大小
 	static void setCornerRefineParams(int, void*);
-	//將區域進行正投影仿射
-	static void warp(PolyF& candidate, cv::Mat& warped, const cv::Mat& gray);
+	//儲存偵測標記的參數
 	void save();
 	Markers _markers;
 };

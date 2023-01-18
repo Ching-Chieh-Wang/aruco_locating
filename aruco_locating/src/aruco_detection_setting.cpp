@@ -35,7 +35,7 @@ void ArucoDetectionSetting::setPolyParams(int ,void* arg) {
 	int contourIdx = 0;
 	for (Poly& contour : arucoDetectionSetter->contours) {
 		//剔除輪廓非四邊形或非外輪廓
-		if (contourIsOuter(arucoDetectionSetter->contourHierarchy, contourIdx)) {
+		if (arucoDetectionSetter->contourIsOuter(arucoDetectionSetter->contourHierarchy, contourIdx)) {
 			//剔除輪廓太小者
 			if (cv::contourArea(contour) > Settings::minArea) {
 				Poly candidate;
@@ -83,13 +83,13 @@ void ArucoDetectionSetting::setCornerRefineParams(int, void* arg) {
 	std::map<MarkerId, int>winSizes;
 	for (Poly& candidate : arucoDetectionSetter->candidates) {
 		PolyF candidatef;
-		makePointsOrder(candidate);
+		arucoDetectionSetter->makePointsOrder(candidate);
 		candidatef.assign(candidate.begin(), candidate.end());
 		int winSize = float(Settings::cornerRefineWinsizeRatio) / 100 * sqrt(cv::contourArea(candidate)) / Params::dictionary.bitSize;
 		if (winSize == 0) winSize = 1;
 		cv::cornerSubPix(arucoDetectionSetter->gray, candidatef, cv::Size(winSize, winSize), cv::Size(-1, -1), cv::TermCriteria(cv::TermCriteria::EPS, 9999999, 0.00000001));
 		cv::Mat warped;
-		warp(candidatef, warped, arucoDetectionSetter->gray);
+		arucoDetectionSetter->warp(candidatef, warped);
 		MarkerId id=-1;
 		if ((id= arucoDetectionSetter->idMatcher(warped, candidatef))==-1) continue;
 		Marker marker(id, Params::dictionary.markerSize(id), candidatef);
@@ -150,15 +150,7 @@ void ArucoDetectionSetting::setCornerRefineParams(int, void* arg) {
 	cv::imshow("cornerRefine", dispImg);
 }
 
-void ArucoDetectionSetting::warp(PolyF& candidate, cv::Mat& warped, const cv::Mat& gray) {
-	std::vector<cv::Point2f> dst_points{ cv::Point2f(0.f,0.f),cv::Point2f(100.f,0.f),cv::Point2f(100.f,100.f),cv::Point2f(0.f,100.f) };
-	cv::Mat transformed = cv::getPerspectiveTransform(candidate, dst_points);
-	int warpSize;
-	int candidatesArea = cv::contourArea(candidate);
-	if (candidatesArea > 100 * 100) warpSize = 100;
-	else warpSize = candidatesArea;
-	cv::warpPerspective(gray, warped, transformed, cv::Size(100, 100), cv::INTER_NEAREST);
-}
+
 
 void ArucoDetectionSetting::save(){
 	Settings::save();
