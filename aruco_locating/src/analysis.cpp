@@ -34,7 +34,7 @@ bool Analysis::analysis(const FrameNumber frameNumber, std::unique_ptr<cv::Mat> 
 		if (_window.isFreezeViz = _isMonitor || _window.isFreezeViz) freezing(frame);
 	}
 	recorder.addFrame(frame, _isSnap, _isParallel );
-	if(frame.img) frame.img.release();
+	assert(!frame.img);
 	return stop;
 }
 
@@ -89,13 +89,15 @@ void Analysis::BA(Frame& frame){
 
 	vertexID = 1;
 	for (auto& [id, marker] : frame.markers) {
-		if (Settings::dispBA)std::cout << "ID" << id << " Before:" << std::endl << marker.pose().matrix << std::endl;
-		std::cout << marker.reprojectionError() << std::endl;
+		if (Settings::dispBA) {
+			std::cout << "ID" << id << " Before:" << std::endl << marker.pose().matrix << std::endl;
+			std::cout << marker.reprojectionError() << std::endl;
+		}
 		g2o::VertexSE3Expmap* pose = static_cast<g2o::VertexSE3Expmap*>(optimizer.vertex(vertexID++));
 		marker.pose() = SE3ToAffine(pose->estimate());
 		if (Settings::dispBA)std::cout << "ID" << id << " After:" << std::endl << marker.pose().matrix << std::endl;
 	}
-	std::cout << std::endl;
+	if (Settings::dispBA)std::cout << std::endl;
 	
 
 }
