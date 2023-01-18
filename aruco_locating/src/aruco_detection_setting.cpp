@@ -91,7 +91,7 @@ void ArucoDetectionSetting::setCornerRefineParams(int, void* arg) {
 		cv::Mat warped;
 		warp(candidatef, warped, arucoDetectionSetter->gray);
 		MarkerId id=-1;
-		if ((id=idMatcher(warped, candidatef))==-1) continue;
+		if ((id= arucoDetectionSetter->idMatcher(warped, candidatef))==-1) continue;
 		Marker marker(id, Params::dictionary.markerSize(id), candidatef);
 		arucoDetectionSetter->_markers.emplace(id,marker);
 		winSizes.emplace(id, winSize);
@@ -149,60 +149,6 @@ void ArucoDetectionSetting::setCornerRefineParams(int, void* arg) {
 	}
 	cv::imshow("cornerRefine", dispImg);
 }
-
-
-
-
-MarkerId  ArucoDetectionSetting::idMatcher(const cv::Mat& warped, PolyF& candidatef) {
-	//首先須依照DictionaryBitsize決定wholeBlockSize，+2是因為最外圍兩邊有一預設的黑色區域
-	cv::Mat otsued;
-	cv::threshold(warped, otsued, 0, 255, cv::THRESH_OTSU);
-	int fullsize = Params::dictionary.bitSize + 2;
-	//去搜尋在每個Block中有多少白色px，以及每個block中有多少px
-	cv::Mat whitePx(fullsize, fullsize, CV_32SC1);
-	cv::Mat allPx(fullsize, fullsize, CV_32SC1);
-	whitePx.setTo(cv::Scalar::all(0));
-	allPx.setTo(cv::Scalar::all(0));
-	for (int y = 0; y < otsued.rows; y++) {
-		uchar* ptr = otsued.ptr<uchar>(y);
-		int my = float(fullsize) * float(y) / float(otsued.rows);
-		for (int x = 0; x < otsued.cols; x++) {
-			int mx = float(fullsize) * float(x) / float(otsued.cols);
-			if (ptr[x] != 0) whitePx.at<int>(my, mx)++;
-			allPx.at<int>(my, mx)++;
-		}
-	}
-	cv::Mat binaryMat = cv::Mat(fullsize, fullsize, CV_8UC1);
-	//若每個block的白色px個數大於整個block的px總數之一半，將binaryCode中該block的值設成1，反之為0
-	for (int y = 0; y < fullsize; y++)
-		for (int x = 0; x < fullsize; x++) {
-			if (whitePx.at<int>(y, x) > allPx.at<int>(y, x) / 2) binaryMat.at<uchar>(y, x) = 1;
-			else binaryMat.at<uchar>(y, x) = 0;
-		}
-	if (!boarderIsBlack(binaryMat, fullsize)) return -1;
-	//開始將照片與dictionary進行比對，如果一直match 不到dictionary 的bitCodes，就旋轉arucobinary，直到旋轉4次。
-	int rotation = 0;
-	int id = -1;
-	while (id == -1 && rotation < 4 ) {
-		std::bitset<64> arucoBinary;
-		int cursor = 0;
-		//拿掉最外圍黑色區域，也就是binary code 的精華地帶，binaryCodeMat 存取Mat型式，binaryCode 存取二進位數字
-		for (int x = Params::dictionary.bitSize; x > 0; x--)
-			for (int y = Params::dictionary.bitSize; y > 0; y--)
-				arucoBinary[cursor++] = binaryMat.at<uchar>(x, y);
-		id = Params::dictionary.find(arucoBinary);
-		if (id != -1) return id;
-		else {
-			cv::Mat rotatedBinaryMat(fullsize, fullsize, CV_8UC1);
-			cv::rotate(binaryMat, binaryMat, cv::ROTATE_90_CLOCKWISE);
-			rotation++;
-		}
-	}
-	return -1;
-}
-
-
-
 
 void ArucoDetectionSetting::warp(PolyF& candidate, cv::Mat& warped, const cv::Mat& gray) {
 	std::vector<cv::Point2f> dst_points{ cv::Point2f(0.f,0.f),cv::Point2f(100.f,0.f),cv::Point2f(100.f,100.f),cv::Point2f(0.f,100.f) };

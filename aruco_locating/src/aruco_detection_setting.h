@@ -29,8 +29,6 @@ private:
 	static void setPolyParams(int ,void*);
 	//調整角點定位優化的搜索視窗大小
 	static void setCornerRefineParams(int, void*);
-	//找到圖形對應的id，若找不到回傳-1
-	static MarkerId idMatcher(const cv::Mat& warped, PolyF& candidate);
 	//將區域進行正投影仿射
 	static void warp(PolyF& candidate, cv::Mat& warped, const cv::Mat& gray);
 	void save();

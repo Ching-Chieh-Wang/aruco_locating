@@ -13,5 +13,7 @@ protected:
 	//建立影像遮罩(偵測範圍)
 	void createMask(const cv::Mat&img,const Polys& detectRegions, cv::Mat& masked);
 
+	MarkerId idMatcher(const cv::Mat& warped, PolyF& candidatef);
+
 };
 #endif
