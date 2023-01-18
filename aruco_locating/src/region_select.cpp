@@ -4,9 +4,9 @@ void RegionSelect::showCurrent() const{
     _img.copyTo(dispImg);
     for (const Poly& poly : _polys) {
         if (poly.size() > 0) {
-            cv::circle(dispImg, poly.front(), 5, cv::Scalar(255, 255, 0), -1, 8, 0);
+            cv::circle(dispImg, poly.front(), 5, cv::Scalar(255, 255, 0), 7, 8, 0);
             for (int i = 0; i < poly.size() - 1; i++) {
-                line(dispImg, poly.at(i), poly.at(i + 1), cv::Scalar(0,255, 0), 2, 8, 0);
+                line(dispImg, poly.at(i), poly.at(i + 1), cv::Scalar(0,255, 0),3,8,0);
             }
             cv::imshow("RegionSelect", dispImg);
         }
@@ -107,9 +107,9 @@ Polys RegionSelect::run(const cv::Mat& img) {
     img.copyTo(_img);
     for (const Poly& poly : Settings::detectRegions) {
         if (poly.size() > 0) {
-            cv::circle(_img, poly.front(), 5, cv::Scalar(255, 0, 255), -1, 8, 0);
+            cv::circle(_img, poly.front(), 5, cv::Scalar(255, 0, 255),7, 8, 0);
             for (int i = 0; i < poly.size() - 1; i++) {
-                line(_img, poly.at(i), poly.at(i + 1), cv::Scalar(0, 0, 255), 2, 8, 0);
+                line(_img, poly.at(i), poly.at(i + 1), cv::Scalar(0, 0, 255), 5, 8, 0);
             }
         }
 
