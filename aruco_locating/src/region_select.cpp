@@ -50,8 +50,8 @@ void RegionSelect::mouseHandler(int event, int x, int y, int flags, void* obj) {
         bitwise_and(maskCutter->_img, maskCutter->_img, result, mask);
         cv::namedWindow("Mask", 0);
         cv::namedWindow("Result", 0);
-        cv::resizeWindow("Mask", cv::Size(1500, 1500.f * maskCutter->_img.cols / maskCutter->_img.rows));
-        cv::resizeWindow("Result", cv::Size(1500, 1500.f * maskCutter->_img.cols / maskCutter->_img.rows));
+        cv::resizeWindow("Mask", cv::Size(1500, 1500.f * maskCutter->_img.rows / maskCutter->_img.cols));
+        cv::resizeWindow("Result", cv::Size(1500, 1500.f * maskCutter->_img.rows / maskCutter->_img.cols));
         cv::imshow("Mask", mask);
         cv::imshow("Result", result);
         cv::waitKey(0);
@@ -115,7 +115,7 @@ Polys RegionSelect::run(const cv::Mat& img) {
 
     }
     cv::namedWindow("RegionSelect", 0);
-    cv::resizeWindow("RegionSelect", cv::Size(1500, 1500.f * _img.cols / _img.rows));
+    cv::resizeWindow("RegionSelect", cv::Size(1500, 1500.f * _img.rows / _img.cols));
     cv::setMouseCallback("RegionSelect", RegionSelect::mouseHandler, this);
     for(const Poly& poly:Settings::detectRegions)
     cv::imshow("RegionSelect", _img);

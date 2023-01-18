@@ -9,17 +9,14 @@ void ArucoDetectionSetting::setThreshParams(int _, void* arg) {
 	if (Settings::adaptiveThreshBlockSize <= 2) Settings::adaptiveThreshBlockSize = 3;
 	cv::adaptiveThreshold(arucoDetectionSetter->gray, arucoDetectionSetter->thresholded, 255, cv::ADAPTIVE_THRESH_GAUSSIAN_C, cv::THRESH_BINARY_INV, Settings::adaptiveThreshBlockSize, Settings::adaptiveThreshC);
 	cv::findContours(arucoDetectionSetter->thresholded, arucoDetectionSetter->contours, arucoDetectionSetter->contourHierarchy, cv::RETR_TREE, cv::CHAIN_APPROX_SIMPLE);
-	arucoDetectionSetter->contoursImg=  cv::Mat(arucoDetectionSetter->thresholded.size(), CV_8UC3, cv::Scalar::all(0));
+	arucoDetectionSetter->contoursImg=  cv::Mat(arucoDetectionSetter->img.size(), CV_8UC3, cv::Scalar::all(0));
 	for (int i = 0; i < arucoDetectionSetter->contours.size(); i++) {
 		cv::drawContours(arucoDetectionSetter->contoursImg, arucoDetectionSetter->contours, i,randColor(),2,2);
 	}
-	cv::Mat  dispThreshed;
 	if (arucoDetectionSetter->thresholded.cols > 1000) {
-		cv::resize(arucoDetectionSetter->contoursImg, arucoDetectionSetter->contoursImg, cv::Size(1000, 1000.f / arucoDetectionSetter->img.cols * arucoDetectionSetter->img.rows));
-		cv::resize(arucoDetectionSetter->thresholded, dispThreshed, cv::Size(1000, 1000.f / arucoDetectionSetter->img.cols * arucoDetectionSetter->img.rows));
-
+		cv::resize(arucoDetectionSetter->contoursImg, arucoDetectionSetter->contoursImg, cv::Size(1000, 1000.f * arucoDetectionSetter->img.rows / arucoDetectionSetter->img.cols));
 	}
-	cv::imshow("thresholded", dispThreshed);
+	cv::imshow("thresholded", arucoDetectionSetter->thresholded);
 	cv::imshow("contoursImg", arucoDetectionSetter->contoursImg);
 }
 
@@ -31,7 +28,7 @@ void ArucoDetectionSetting::setPolyParams(int ,void* arg) {
 	ArucoDetectionSetting* arucoDetectionSetter = static_cast<ArucoDetectionSetting*>(arg);
 	assert(arucoDetectionSetter != nullptr);
 	arucoDetectionSetter->candidates.clear();
-	cv::Mat polyFilteredImg = cv::Mat(arucoDetectionSetter->thresholded.size(), CV_8UC3, cv::Scalar::all(0));
+	cv::Mat polyFilteredImg = cv::Mat(arucoDetectionSetter->img.size(), CV_8UC3, cv::Scalar::all(0));
 	int contourIdx = 0;
 	for (Poly& contour : arucoDetectionSetter->contours) {
 		//剔除輪廓非四邊形或非外輪廓
@@ -45,7 +42,7 @@ void ArucoDetectionSetting::setPolyParams(int ,void* arg) {
 					//剔除羅擴太靠近照片邊緣
 					bool contourTooCloseToBoarder = false;
 					for (int i = 0; i < 4; i++) {
-						if (candidate[i].x <  Settings::cutBoarder || candidate[i].y <  Settings::cutBoarder || candidate[i].x > arucoDetectionSetter->thresholded.cols  - Settings::cutBoarder || candidate[i].y > arucoDetectionSetter->thresholded.rows  - Settings::cutBoarder) {
+						if (candidate[i].x <  Settings::cutBoarder || candidate[i].y <  Settings::cutBoarder || candidate[i].x > arucoDetectionSetter->img.cols  - Settings::cutBoarder || candidate[i].y > arucoDetectionSetter->img.rows  - Settings::cutBoarder) {
 							contourTooCloseToBoarder = true;
 							break;
 						}
@@ -58,11 +55,6 @@ void ArucoDetectionSetting::setPolyParams(int ,void* arg) {
 			}
 		}
 		contourIdx++;
-	}
-
-	//顯示多邊形性質篩選結果
-	if (polyFilteredImg.cols > 1000) {
-		cv::resize(polyFilteredImg, polyFilteredImg, cv::Size(1000, 1000.f / arucoDetectionSetter->img.cols * arucoDetectionSetter->img.rows));
 	}
 	cv::imshow("polyFilteredImg", polyFilteredImg);
 }
@@ -144,9 +136,6 @@ void ArucoDetectionSetting::setCornerRefineParams(int, void* arg) {
 		cv::namedWindow("cornerRefine" + std::to_string(marker.id), 0);
 		cv::imshow("cornerRefine"+std::to_string(marker.id), cut);
 	}
-	if (arucoDetectionSetter->img.cols > 1000) {
-		cv::resize(dispImg, dispImg, cv::Size(1000, 1000.f / arucoDetectionSetter->img.cols * arucoDetectionSetter->img.rows));
-	}
 	cv::imshow("cornerRefine", dispImg);
 }
 
@@ -203,14 +192,20 @@ bool ArucoDetectionSetting::tune(const FrameNumber frameNumber, std::unique_ptr<
 	}
 	else cv::cvtColor(this->img, gray, cv::COLOR_BGR2GRAY);
 	cv::namedWindow("thresholded",0);
+	if (img->cols > 1000) 
+		cv::resizeWindow("thresholded", cv::Size(1000, 1000.f * img->rows / img->cols));
 	cv::createTrackbar("adaptiveThreshC",  "thresholded", &Settings::adaptiveThreshC, 50, ArucoDetectionSetting::setThreshParams,this);
 	cv::createTrackbar("adaptiveThreshBlocksizeRatio",  "thresholded", &Settings::adaptiveThreshBlockSize, 500, ArucoDetectionSetting::setThreshParams, this);
 	setThreshParams(0, this);
 	cv::namedWindow("polyFilteredImg",0);
+	if (img->cols > 1000)
+		cv::resizeWindow("polyFilteredImg", cv::Size(1000, 1000.f * img->rows / img->cols));
 	cv::createTrackbar("minAreaOfCandidateThresh",  "polyFilteredImg", &Settings::minArea, 10000, ArucoDetectionSetting::setPolyParams, this);
 	cv::createTrackbar("approxPolyDPEpsilon",  "polyFilteredImg", &Settings::approxPolyDPEpsilonRatio, 100, ArucoDetectionSetting::setPolyParams, this);
 	setPolyParams(0, this);
 	cv::namedWindow("cornerRefine",0);
+	if (img->cols > 1000)
+		cv::resizeWindow("cornerRefine", cv::Size(1000, 1000.f * img->rows / img->cols));
 	cv::createTrackbar("cornerRefineWinsizeRatio",  "cornerRefine", &Settings::cornerRefineWinsizeRatio, 100, ArucoDetectionSetting::setCornerRefineParams, this);
 	setCornerRefineParams(0, this);
 	int key=cv::waitKey(0);
