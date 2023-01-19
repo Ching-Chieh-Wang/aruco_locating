@@ -27,7 +27,7 @@ void Record::output(const std::string& name) const{
 	ofile  << "error," << std::endl;
 	for (const Frame& frame : frames) {
 		for (auto& [id, marker] : frame.markers) {
-			ofile << frame.frameNumber << ","<<frame.imgName<<',' << id << ',' << marker.worldCoordCenter().x * 1000 << "," << marker.worldCoordCenter().y * 1000 << "," << marker.worldCoordCenter().z * 1000 << ",";
+			ofile << frame.frameNumber << ","<<frame.imgName<<',' << id << ',' << marker.worldCoordCenter().x  << "," << marker.worldCoordCenter().y << "," << marker.worldCoordCenter().z << ",";
 			cv::Mat rvec, tvec;
 			std::tie(rvec, tvec) = T2RvecTvec(marker.pose().inv());
 			for (int i = 0; i < 3; i++) ofile << rvec.at<double>(i,0)<<",";
