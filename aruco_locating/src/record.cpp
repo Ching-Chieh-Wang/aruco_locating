@@ -21,13 +21,13 @@ void Record::addFrame(Frame& frame, const bool saveImg, const bool isParallel) {
 void Record::output(const std::string& name) const{
 	std::ofstream ofile;
 	ofile.open(name+"/Result.csv", std::ios::out, std::ios::trunc);
-	ofile << "Frame,ID,x,y,z,";
+	ofile << "Frame,ImgName,ID,x,y,z,";
 	for (int i = 0; i < 3; i++) ofile << "rvec[" + std::to_string(i) + "],";
 	for (int i = 0; i < 3; i++) ofile << "tvec[" + std::to_string(i) + "],";
 	ofile  << "error," << std::endl;
 	for (const Frame& frame : frames) {
 		for (auto& [id, marker] : frame.markers) {
-			ofile << frame.frameNumber << "," << id << ',' << marker.worldCoordCenter().x * 1000 << "," << marker.worldCoordCenter().y * 1000 << "," << marker.worldCoordCenter().z * 1000 << ",";
+			ofile << frame.frameNumber << ","<<frame.imgName<<',' << id << ',' << marker.worldCoordCenter().x * 1000 << "," << marker.worldCoordCenter().y * 1000 << "," << marker.worldCoordCenter().z * 1000 << ",";
 			cv::Mat rvec, tvec;
 			std::tie(rvec, tvec) = T2RvecTvec(marker.pose().inv());
 			for (int i = 0; i < 3; i++) ofile << rvec.at<double>(i,0)<<",";

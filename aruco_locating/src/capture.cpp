@@ -29,13 +29,13 @@ void Capture::run(const std::function<bool(const FrameNumber,std::unique_ptr<cv:
 			if (parallel) {
 #pragma omp parallel for
 				for (FrameNumber frameNumber = 0; frameNumber < imgPaths.size(); frameNumber++) {
-					func(frameNumber, std::make_unique<cv::Mat>(cv::imread(imgPaths.at(frameNumber))),imgPaths.at(frameNumber));
+					func(frameNumber, std::make_unique<cv::Mat>(cv::imread(imgPaths.at(frameNumber))), std::filesystem::path(imgPaths.at(frameNumber)).filename().string());
 				}
 			}
 			else {
 				FrameNumber frameNumber = 0;
 				for (const std::string& path : imgPaths) {
-					bool stop=func(frameNumber++, std::make_unique<cv::Mat>(cv::imread(path)),path);
+					bool stop=func(frameNumber++, std::make_unique<cv::Mat>(cv::imread(path)), std::filesystem::path(imgPaths.at(frameNumber)).filename().string());
 					if (stop) break;
 				}
 			}
