@@ -4,7 +4,7 @@
 // 前端介面
 class Front {
 public:
-	Front();
+	Front(const std::string& paramsPath="params.json", const std::string& settingsPath="settings.json");
 	//調整偵測aruco detection的參數
 	void arucoDetectionSet(const Source source, const std::string& sourcePath);
 	// 開始跑

@@ -4,6 +4,7 @@
 
 
 void Params::load(const std::string& path) {
+	filePath = path;
 	Json::Value loader = Json::Value(parse(path));
 	kmat = json2cvMat(loader["kmat"]);
 	distmat = json2cvMat(loader["distmat"]);

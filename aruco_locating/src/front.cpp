@@ -39,12 +39,12 @@ void Front::save(const std::string path)  const{
 	std::filesystem::create_directory(savePath);
 	std::filesystem::create_directory(savePath + "/imgs");
 	analyzer.outputResults(savePath);
-	std::filesystem::copy_file("params.json", savePath+"/params.json", std::filesystem::copy_options::update_existing);
+	std::filesystem::copy_file(Params::filePath, savePath+"/params.json", std::filesystem::copy_options::update_existing);
 }
 
-Front::Front(){
-	Params::load("params.json");
-	Settings::load("settings.json");
+Front::Front(const std::string& paramsPath, const std::string& settingsPath) {
+	Params::load(paramsPath);
+	Settings::load(settingsPath);
 }
 
 void Front::arucoDetectionSet(const Source source, const std::string& sourcePath){

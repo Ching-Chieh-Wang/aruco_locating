@@ -3,6 +3,7 @@
 //常用調整參數
 class Params {
 public:
+	static std::string filePath;
 	//相機內參矩陣
 	static cv::Mat kmat;
 	//相機扭轉矩陣
@@ -17,7 +18,7 @@ private:
 	static std::map<MarkerId, double> getSpecialMarkerSizes(const Json::Value& loader);
 };
 
-
+std::string Params::filePath = "";
 cv::Mat Params::kmat = cv::Mat();
 cv::Mat Params::distmat = cv::Mat();
 cv::Size Params::imgSize = cv::Size();
