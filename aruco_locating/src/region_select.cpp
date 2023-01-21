@@ -104,6 +104,7 @@ void RegionSelect::mouseHandler(int event, int x, int y, int flags, void* obj) {
 
 
 Polys RegionSelect::run(const cv::Mat& img) {
+    stop = false;
     img.copyTo(_img);
     for (const Poly& poly : Settings::detectRegions) {
         if (poly.size() > 0) {
@@ -119,7 +120,11 @@ Polys RegionSelect::run(const cv::Mat& img) {
     cv::setMouseCallback("RegionSelect", RegionSelect::mouseHandler, this);
     for(const Poly& poly:Settings::detectRegions)
     cv::imshow("RegionSelect", _img);
-    cv::waitKey(0);
+    int key=cv::waitKey(0);
+    if (key == 27) {
+        cv::destroyAllWindows();
+        stop = true;
+    }
     cv::destroyAllWindows();
     if(!_polys.empty())_polys.pop_back();
     if (!_isUserConfirmed) _polys = Settings::detectRegions;

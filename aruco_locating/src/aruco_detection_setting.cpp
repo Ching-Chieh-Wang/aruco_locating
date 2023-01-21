@@ -191,6 +191,7 @@ bool ArucoDetectionSetting::tune(const FrameNumber frameNumber, std::unique_ptr<
 		cv::cvtColor(masked, gray, cv::COLOR_BGR2GRAY);
 	}
 	else cv::cvtColor(this->img, gray, cv::COLOR_BGR2GRAY);
+	if (regionSelecter.stop)return true;
 	cv::namedWindow("thresholded",0);
 	if (img->cols > 1000) 
 		cv::resizeWindow("thresholded", cv::Size(1000, 1000.f * img->rows / img->cols));

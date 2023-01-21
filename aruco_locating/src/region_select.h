@@ -10,6 +10,7 @@ private:
     void showCurrent()const;
     static void mouseHandler(const int event, int x, int y, int flags, void* obj);
 public:
+    bool stop = false;
     Polys run(const cv::Mat& img);
 };
 
