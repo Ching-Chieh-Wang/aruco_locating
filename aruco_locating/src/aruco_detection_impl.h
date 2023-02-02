@@ -26,6 +26,8 @@ protected:
 	MarkerId idMatcher(const cv::Mat& warped, PolyF& candidatef);
 	//將區域進行正投影仿射
 	void warp(PolyF& candidate, cv::Mat& warped);
+	void contrastAdjust(const cv::Mat& img, cv::Mat& adjustedImg, const int& contrastFactor);
+	int contrastPixelWiseAdjust(const int &val, const int &contrastFactor);
 
 };
 #endif

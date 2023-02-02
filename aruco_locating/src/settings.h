@@ -4,6 +4,9 @@
 
 class Settings {
 public:
+
+	//對比度調整係數
+	static int contrastFactor;
 	///忽略靠近邊緣多少px的marker
 	static int cutBoarder;
 	///窗格大小，越大越容易將marker附近的類似黑色區域也考慮為marker邊界，越小的話marker太小會偵測不到
@@ -32,6 +35,8 @@ private:
 
 #endif 
 
+
+int Settings::contrastFactor = 0;
 int Settings::cutBoarder=-1;
 ///窗格大小，越大越容易將marker附近的類似黑色區域也考慮為marker邊界，越小的話marker太小會偵測不到
 int Settings::adaptiveThreshBlockSize=-1;

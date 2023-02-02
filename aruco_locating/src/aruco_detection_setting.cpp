@@ -183,6 +183,7 @@ void ArucoDetectionSetting::run(const Source source,const std::string& sourcePat
 
 bool ArucoDetectionSetting::tune(const FrameNumber frameNumber, std::unique_ptr<cv::Mat> img, const std::string& imgName){
 	this->img = *img;
+	if (Settings::contrastFactor != 0) contrastAdjust(this->img, this->img, Settings::contrastFactor);
 	RegionSelect regionSelecter;
 	Settings::detectRegions = regionSelecter.run(this->img);
 	if (!Settings::detectRegions.empty()) {

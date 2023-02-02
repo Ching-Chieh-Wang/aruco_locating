@@ -3,7 +3,10 @@
 
 
 void ArucoDetection::detect(const cv::Mat & image, Markers& markers) {
-	cv::cvtColor(image, gray, cv::COLOR_BGR2GRAY);
+	cv::Mat adjustedImg;
+	if (Settings::contrastFactor != 0) contrastAdjust(image, adjustedImg, Settings::contrastFactor);
+	else adjustedImg = image;
+	cv::cvtColor(adjustedImg, gray, cv::COLOR_BGR2GRAY);
 	createMask();
 	Polys candidates;
 	std::vector<cv::Vec4i> hierarchy;

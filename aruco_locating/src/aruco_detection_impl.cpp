@@ -147,3 +147,34 @@ void ArucoDetectionImpl::warp(PolyF& candidate, cv::Mat& warped) {
 	else warpSize = candidatesArea;
 	cv::warpPerspective(gray, warped, transformed, cv::Size(100, 100), cv::INTER_NEAREST);
 }
+
+void ArucoDetectionImpl::contrastAdjust(const cv::Mat& img,cv::Mat& adustedImg, const int& contrastFactor){
+	adustedImg.create(img.size(), img.type());
+#pragma omp parallel for
+	for (int i = 0; i < img.rows; i++) {
+		const uchar* sptr = img.ptr<uchar>(i);
+		uchar* dptr = adustedImg.ptr<uchar>(i);
+		for (int j = 0; j < img.cols; j++) {
+			uchar b = sptr[img.channels() * j];
+			uchar g = sptr[img.channels() * j + 1];
+			uchar r = sptr[img.channels() * j + 2];
+			dptr[img.channels() * j] = contrastPixelWiseAdjust(b, contrastFactor);
+			dptr[img.channels() * j + 1] = contrastPixelWiseAdjust(g, contrastFactor);
+			dptr[img.channels() * j + 2] = contrastPixelWiseAdjust(r, contrastFactor);
+		}
+	}
+}
+
+int ArucoDetectionImpl::contrastPixelWiseAdjust(const int& val, const int& contrastFactor){
+	float adjustedVal= float(val) / 255;
+	float s = 1.f - 3.f * contrastFactor / 400;
+	float a1 = 2 * (1 - s);
+	float b1 = s;
+	float c1 = 0;
+	float a2 = 2 * (s - 1);
+	float b2 = 4 - 3 * s;
+	float c2 = s - 1;
+	if (adjustedVal <= 0.5)
+		return 255*(a1 * pow(adjustedVal, 2) + b1 * adjustedVal + c1);
+	else return 255*(a2 * pow(adjustedVal, 2) + b2 * adjustedVal + c2);
+}

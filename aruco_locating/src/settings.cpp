@@ -13,6 +13,7 @@ void Settings::load(const std::string&path) {
 	
 
 	///忽略靠近邊緣的marker，邊緣的距離
+	contrastFactor= loader["arucoDetection"]["contrastFactor"].asInt();
 	cutBoarder = loader["arucoDetection"]["cutBoarder"].asInt();
 	if (cutBoarder < 0) throw("[Settings.json] cutBorder cannot be <0");
 	///閥值-C，數字越小越易於解決陰影問題，但速度越慢
@@ -53,6 +54,7 @@ void Settings::load(const std::string&path) {
 void Settings::save(const std::string& path){
 	if (path != "") _path=path;
 	Json::Value saver = Json::Value();
+	saver["arucoDetection"]["contrastFactor"] = contrastFactor;
 	saver["arucoDetection"]["cutBoarder"] = cutBoarder;
 	saver["arucoDetection"]["adaptiveThreshBlockSize"] = adaptiveThreshBlockSize;
 	saver["arucoDetection"]["adaptiveThreshC"] = adaptiveThreshC;
