@@ -51,6 +51,7 @@ Capture::Capture(const Source source, const std::string& sourcePath){
 	_sourcePath = sourcePath;
 	switch (source) {
 	case Source::LIVE_CAPTURE: {
+		throw("LIVE_CAPTURE currently not supported");
 		try {
 			std::stoi(_sourcePath);
 		}
@@ -72,6 +73,7 @@ Capture::Capture(const Source source, const std::string& sourcePath){
 		break;
 	}
 	case Source::VIDEO: {
+		throw("VIDEO currently not supported");
 		cv::VideoCapture capturer;
 		cv::Mat img;
 		capturer.open(sourcePath);
@@ -139,7 +141,7 @@ void Capture::liveCapture(const std::function<bool(FrameNumber, std::unique_ptr<
 	cv::VideoCapture capturer;
 	bool stop = false;
 	std::unique_ptr<cv::Mat> img;
-	capturer.set(cv::CAP_PROP_POS_FRAMES, 0);
+	capturer.set(cv::CAP_PROP_POS_FRAMES, std::stoi(_sourcePath));
 	FrameNumber frameNumber=0;
 	while (!stop) {
 		capturer.read(*(img = std::make_unique<cv::Mat>()));
