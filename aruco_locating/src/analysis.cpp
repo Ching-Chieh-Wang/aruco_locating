@@ -24,14 +24,13 @@ bool Analysis::analysis(const FrameNumber frameNumber, std::unique_ptr<cv::Mat> 
 	}
 	Frame frame(frameNumber, imgName, std::move(img), markers);
 	bool stop = false;
-	if (_source!=Source::LIVE_CAPTURE|| _isSnap) 
-		if (_isBA) BA(frame);
+	if (_isBA) BA(frame);
 	if (!_isParallel) {
 		_window.updateWindow(frame);
 		frame.show();
 		stop = getCommand(frame);
 		_window.show();
-		if (_window.isFreezeViz = _isMonitor || _window.isFreezeViz) freezing(frame);
+		if (_window.isFreezeViz = _isMonitor) freezing(frame);
 	}
 	recorder.addFrame(frame, _isSnap, _isParallel );
 	assert(!frame.img);

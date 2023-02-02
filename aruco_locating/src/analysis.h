@@ -25,7 +25,7 @@ private:
 	void freezing(Frame& frame);
 	//是否有要求平行處裡
 	bool _isParallel = false;
-	//是否有要求監督標記都有偵測到
+	//每分析一個frame停下來給使用者查看結果
 	bool _isMonitor = false;
 	//是否有要求開啟BA優化
 	bool _isBA = false;
