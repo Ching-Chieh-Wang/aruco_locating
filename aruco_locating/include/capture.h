@@ -1,5 +1,9 @@
 #ifndef CAPTURE_H
 #define CAPTURE_H
+
+
+#include "types.h"
+
 class Capture {
 public:
 	int totalFramesCount = -1;

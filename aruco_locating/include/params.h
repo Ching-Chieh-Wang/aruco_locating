@@ -1,7 +1,14 @@
 #ifndef PARAMS_H
 #define PARAMS_H
+
+
+#include "../pch.h"
+#include "types.h"
+#include "json_reader.h"
+#include "dictionary.h"
+
 //常用調整參數
-class Params {
+class Params :private JsonReader{
 public:
 	static std::string filePath;
 	//相機內參矩陣
@@ -18,11 +25,5 @@ private:
 	static std::map<MarkerId, double> getSpecialMarkerSizes(const Json::Value& loader);
 };
 
-std::string Params::filePath = "";
-cv::Mat Params::kmat = cv::Mat();
-cv::Mat Params::distmat = cv::Mat();
-cv::Size Params::imgSize = cv::Size();
-double Params::markerSize = -1;
-Dictionary Params::dictionary(Dictionary::DictType::ERROR,-1,std::map<MarkerId,double>{});
-std::unordered_map<int, double> markers{};
+
 #endif

@@ -1,5 +1,7 @@
-﻿#include "camera_model.h"
-#include "pba_frame.h"
+﻿#include "../../pch.h"
+#include "pba/camera_model.h"
+#include "pba/pba_frame.h"
+#include "params.h"
 
 
 void optWithMarker()

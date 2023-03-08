@@ -1,5 +1,11 @@
 #ifndef MARKER_H
 #define MARKER_H
+
+#include "../pch.h"
+#include "types.h"
+#include "pnp_obj.h"
+
+
 class Marker :public PnPObj{
 private:
 	float _chi2 = -1;
@@ -33,8 +39,6 @@ public:
 	Marker(const MarkerId id, const double& size,  const std::vector<cv::Point2f>& corners);
 
 };
-
-std::unordered_map<MarkerId, std::pair<cv::Mat,cv::Mat>> Marker::markerTHistories = std::unordered_map<MarkerId, std::pair<cv::Mat, cv::Mat>>{};
 
 
 

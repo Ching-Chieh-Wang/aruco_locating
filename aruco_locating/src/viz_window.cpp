@@ -1,4 +1,7 @@
+#include "../pch.h"
 #include "viz_window.h"
+#include "settings.h"
+#include "frame.h"
 
 
 void VIZWindow::updateWindow(const Frame& frame){

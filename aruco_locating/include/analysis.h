@@ -1,5 +1,10 @@
 #ifndef ANALYSIS_H
 #define ANALYSIS_H
+#include "viz_window.h"
+#include "record.h"
+#include "frame.h"
+#include "types.h"
+
 class Analysis {
 public:
 	//¶i¦æ¤ÀªR

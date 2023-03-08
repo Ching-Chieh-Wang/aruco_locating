@@ -62,12 +62,12 @@ struct ObsTag
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
     Matrix24d puv_;    // pixel coordinate of four conners
-    Marker* marker_;    // correspond marker in map
+    BAMarker* marker_;    // correspond marker in map
     int tagid_;
 
     std::vector< std::pair<Eigen::Vector2d, Eigen::Vector4d> > point;    // points inner tag, used to improve the solvepnp
 
-    ObsTag(Matrix24d px, Marker* m,int id):
+    ObsTag(Matrix24d px, BAMarker* m,int id):
     puv_(px),
     marker_(m),
     tagid_(id)

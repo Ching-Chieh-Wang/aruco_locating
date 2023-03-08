@@ -1,4 +1,7 @@
+#include "../pch.h"
 #include "aruco_detection_impl.h"
+#include "settings.h"
+#include "params.h"
 
 
 bool ArucoDetectionImpl::boarderIsBlack(cv::Mat& binaryCode, int fullsize) {

@@ -1,6 +1,9 @@
 #ifndef RECORD_H
 #define RECORD_H
 
+#include "../pch.h"
+#include "frame.h"
+
 class Record  {
 public:
 	std::vector<Frame> frames;

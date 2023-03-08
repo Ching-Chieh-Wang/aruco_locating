@@ -1,5 +1,7 @@
 #ifndef FRAME_H
 #define FRAME_H
+
+#include "marker.h"
 class Frame {
 private:
 	void saveImgThread(FrameNumber frameNumber, std::unique_ptr<cv::Mat> img);

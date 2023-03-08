@@ -2,7 +2,12 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
-class Settings {
+#include "../pch.h"
+#include "json_reader.h"
+#include "types.h"
+
+
+class Settings :private JsonReader{
 public:
 
 	//對比度調整係數
@@ -33,24 +38,7 @@ private:
 
 };
 
+
 #endif 
 
 
-int Settings::contrastFactor = 0;
-int Settings::cutBoarder=-1;
-///窗格大小，越大越容易將marker附近的類似黑色區域也考慮為marker邊界，越小的話marker太小會偵測不到
-int Settings::adaptiveThreshBlockSize=-1;
-///閥值-C，數字越小越易於解決陰影問題，但速度越慢
-int Settings::adaptiveThreshC=-1;
-//markerCandiates佔整張影像之比率閥值
-int Settings::minArea=-1;
-//ApproxPolyDP 誤差接受範圍epsilon距離:contour的邊長的比率
-int Settings::approxPolyDPEpsilonRatio=-1;
-//CornerRefine 的搜索視窗佔aruco一格邊長的比率
-int Settings::cornerRefineWinsizeRatio=-1;
-Polys Settings::detectRegions{  };
-
-float Settings::unambiguousErrorRaioThresh=-1;
-float Settings::projectionErrorThresh=-1;
-bool Settings::dispBA=false;
-std::string Settings::_path = "";

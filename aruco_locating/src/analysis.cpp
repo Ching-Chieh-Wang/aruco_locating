@@ -1,4 +1,16 @@
+#include "../pch.h"
 #include "analysis.h"
+#include "capture.h"
+#include "marker.h"
+#include "frame.h"
+#include "types.h"
+#include "aruco_detection.h"
+#include "aruco_detection_setting.h"
+#include "pba/g2otypes_marker.h"
+#include "params.h"
+#include "settings.h"
+#include "pba/g2otypes_marker.h"
+#include "utils.h"
 
 
 
@@ -199,7 +211,4 @@ bool Analysis::getCommand(Frame& frame) {
 	}
 	return false;
 }
-
-
-
 

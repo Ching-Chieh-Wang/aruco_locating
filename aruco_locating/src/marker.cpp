@@ -1,4 +1,9 @@
+#include "../pch.h"
 #include "marker.h"
+
+
+#include "params.h"
+
 
 
 
@@ -67,3 +72,4 @@ Marker::Marker(const MarkerId id, const double& size, const std::vector<cv::Poin
 
 
 
+std::unordered_map<MarkerId, std::pair<cv::Mat, cv::Mat>> Marker::markerTHistories = std::unordered_map<MarkerId, std::pair<cv::Mat, cv::Mat>>();

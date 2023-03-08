@@ -1,5 +1,7 @@
 #ifndef FRONT_H
 #define FRONT_H
+#include "types.h"
+#include "analysis.h"
 
 // «eºÝ¤¶­±
 class Front {

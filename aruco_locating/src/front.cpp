@@ -1,12 +1,18 @@
+#include "../pch.h"
 #include "front.h"
-#include "viz_window.h"
 
+
+#include "viz_window.h"
+#include "params.h"
+#include "settings.h"
+#include "aruco_detection_setting.h"
 
 
 
 
 
 void Front::run(const Source source, const std::string& sourcePath, const bool BA , const bool monitor, const bool parallel) {
+	std::cout << "proccessing" << std::endl;
 	if (!std::filesystem::is_directory("saved") || !std::filesystem::exists("saved")) { // Check if saved folder exists
 		std::filesystem::create_directory("saved"); // create saved folder
 	}
@@ -40,6 +46,7 @@ void Front::save(const std::string path)  const{
 	std::filesystem::create_directory(savePath + "/imgs");
 	analyzer.outputResults(savePath);
 	std::filesystem::copy_file(Params::filePath, savePath+"/params.json", std::filesystem::copy_options::update_existing);
+	std::cout << "save successfully: " + Params::filePath << std::endl;
 }
 
 Front::Front(const std::string& paramsPath, const std::string& settingsPath) {

@@ -1,4 +1,13 @@
+#include "../pch.h"
 #include "region_select.h"
+
+
+
+#include "frame.h"
+#include "types.h"
+#include "settings.h"
+
+
 void RegionSelect::showCurrent() const{
     cv::Mat dispImg;
     _img.copyTo(dispImg);

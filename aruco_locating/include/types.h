@@ -1,10 +1,9 @@
 #ifndef _TYPES_H
 #define _TYPES_H
 
-class Frame;
-class KeyFrame;
+#include "../pch.h"
+
 class Marker;
-class KeyMarker;
 
 typedef int MarkerId;
 typedef int FrameNumber;

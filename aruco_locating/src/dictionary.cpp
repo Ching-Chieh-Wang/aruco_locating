@@ -1,4 +1,7 @@
+#include "../pch.h"
 #include "dictionary.h"
+
+
 
 
 Dictionary::Dictionary(const Dictionary::DictType type,const double& markerSize, const std::map<MarkerId,double>& speiclaMarkerSizes) {

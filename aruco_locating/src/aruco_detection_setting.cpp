@@ -1,4 +1,10 @@
+#include "../pch.h"
 #include "aruco_detection_setting.h"
+#include "utils.h"
+#include "settings.h"
+#include "capture.h"
+#include "params.h"
+#include "region_select.h"
 
 
 

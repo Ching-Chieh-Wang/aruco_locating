@@ -1,5 +1,8 @@
+#include "../pch.h"
 #include "record.h"
 
+#include "frame.h"
+#include "utils.h"
 
 
 void Record::addFrame(Frame& frame, const bool saveImg){

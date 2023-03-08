@@ -5,8 +5,7 @@
  *      Author: cforster
  */
 
-#include <fstream>
-#include "camera_model.h"
+#include "pba/camera_model.h"
 
 namespace Camera_Model {
 

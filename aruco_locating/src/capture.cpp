@@ -1,4 +1,9 @@
+#include "../pch.h"
 #include "capture.h"
+
+
+#include "params.h"
+#include "types.h"
 
 
 void Capture::run(const std::function<bool(const FrameNumber,std::unique_ptr<cv::Mat>,const std::string&)>& func,bool parallel){

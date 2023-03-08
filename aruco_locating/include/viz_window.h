@@ -2,6 +2,8 @@
 #define VIZWINDOW_H
 
 
+#include "frame.h"
+
 //視覺化界面
 class VIZWindow {
 public:

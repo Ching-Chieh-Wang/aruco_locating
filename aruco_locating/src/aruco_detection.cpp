@@ -1,5 +1,8 @@
+#include "../pch.h"
 #include "aruco_detection.h"
-
+#include "types.h"
+#include "marker.h"
+#include "params.h"
 
 
 void ArucoDetection::detect(const cv::Mat & image, Markers& markers) {

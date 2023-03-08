@@ -1,6 +1,10 @@
 #ifndef DICTIONARY_H
 #define DICTIONARY_H
 
+#include "../pch.h"
+#include "types.h"
+
+
 class Dictionary {
 public:
 	///ArUco¦r¨åºØ¿à

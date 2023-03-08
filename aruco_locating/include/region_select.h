@@ -1,5 +1,7 @@
 #ifndef _REGION_SELECT_H
 #define _REGION_SELECT_H
+#include "utils.h"
+#include "types.h"
 
 class RegionSelect {
 private:

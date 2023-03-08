@@ -1,11 +1,8 @@
 #ifndef CAMERA_MODEL_H_
 #define CAMERA_MODEL_H_
 
-#include <stdlib.h>
-#include <string>
-#include <Eigen/Eigen>
-#include <opencv2/opencv.hpp>
 
+#include "../pch.h"
 namespace Camera_Model {
 
 using namespace std;

@@ -1,4 +1,9 @@
+#include "../pch.h"
 #include "frame.h"
+
+#include"types.h"
+#include "params.h"
+
 
 Frame::Frame(const FrameNumber frameNumber,const std::string& imgName, std::unique_ptr<cv::Mat>img, const Markers& markers):frameNumber(frameNumber) {
 	this->markers = markers;
