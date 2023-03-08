@@ -34,7 +34,7 @@ void Front::run(const Source source, const std::string& sourcePath, const bool B
 void Front::save(const std::string path)  const{
 
 	std::string savePath = "";
-	if (path != "") savePath = "saved/"+path;
+	if (path != "") savePath = path;
 	else {
 		char tt[100];
 		time_t now = time(nullptr);
@@ -46,7 +46,7 @@ void Front::save(const std::string path)  const{
 	std::filesystem::create_directory(savePath + "/imgs");
 	analyzer.outputResults(savePath);
 	std::filesystem::copy_file(Params::filePath, savePath+"/params.json", std::filesystem::copy_options::update_existing);
-	std::cout << "save successfully: " + Params::filePath << std::endl;
+	std::cout << "save successfully: " + savePath << std::endl;
 }
 
 Front::Front(const std::string& paramsPath, const std::string& settingsPath) {
