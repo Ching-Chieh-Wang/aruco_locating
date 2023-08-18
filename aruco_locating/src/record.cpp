@@ -39,3 +39,32 @@ void Record::output(const std::string& name) const{
 		}
 	}
 }
+
+void Record::outputFrames(const std::string& path) const{
+	Json::Value savor;
+	for (const auto&  frame : frames) {
+		Json::Value saveFrame;
+		saveFrame["frameNumber"] = frame.frameNumber;
+		saveFrame["frameName"] = frame.imgName;
+		for (const auto& [id, marker] : frame.markers) {
+			Json::Value saveMarker;
+			saveMarker["id"] = id;
+			saveMarker["size"] = marker.size;
+			for (const cv::Point2f& corner : marker.corners) {
+				Json::Value saveCorner;
+				saveCorner["x"] = corner.x;
+				saveCorner["y"] = corner.y;
+				saveMarker["corners"].append(saveCorner);
+			}
+			saveFrame["markers"].append(saveMarker);
+		}
+		savor["keyFrames"].append(saveFrame);
+	}
+	Json::StyledWriter sw;
+	std::ofstream jsonFile(path + "/map.json", std::ios::out);
+	if (!jsonFile.is_open()) {
+		throw("Error saving map writing to json");
+	}
+	jsonFile << sw.write(savor);
+	jsonFile.close();
+}

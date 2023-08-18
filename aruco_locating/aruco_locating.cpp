@@ -1,20 +1,14 @@
 ﻿#include "pch.h"
 #include "front.h"
 
-void autoLoadFile(std::map<std::string, std::pair<std::string,std::string>>& folderParamsSettingsBundles) {
-	folderParamsSettingsBundles.emplace("datum", std::pair <std::string, std::string>("params.json", "settings.json"));
-}
 
 int main(){
 // key: 照片資料夾路徑,value:.json檔的路徑
-	std::map<std::string, std::pair<std::string, std::string>> folderParamsBundles;
-	autoLoadFile(folderParamsBundles);
-	for (const auto&[ folderPath,paramsSettingsPath] : folderParamsBundles) {
-		Front front(paramsSettingsPath.first, paramsSettingsPath.second);
-		/*front.arucoDetectionSet(Source::IMAGE, folderPath);*/
-		front.run(Source::IMAGE, folderPath, true, true, false);
-		front.save(std::filesystem::path(folderPath).filename().string());
-	}
+	Front front("params.json", "settings.json");
+	//front.arucoDetectionSet(Source::IMAGE, "C:\\Users\\user\\source\\Repos\\Ching-Chieh-Wang\\aruco_crack_sfm\\aruco_crack_sfm\\saved\\redetect\\imgs");
+	front.run(Source::IMAGE, "C:\\Users\\user\\source\\Repos\\Ching-Chieh-Wang\\aruco_crack_sfm\\aruco_crack_sfm\\saved\\redetect\\imgs", true,false, true);
+	front.saveFrames();
+	//front.save();
 }
 
 

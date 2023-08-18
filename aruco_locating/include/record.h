@@ -10,6 +10,7 @@ public:
 	void addFrame(Frame& frame, const bool saveImg);
 	void addFrame(Frame& frame, const bool saveImg, const bool isParallel);
 	void output(const std::string& name) const;
+	void outputFrames(const std::string& name) const;
 
 private:
 

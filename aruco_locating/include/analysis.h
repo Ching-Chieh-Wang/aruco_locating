@@ -11,6 +11,8 @@ public:
 	void run(const Source source, const std::string& sourcePath,const bool isParallel,const bool isMonitor,const bool isBA);
 	//輸出分析結果
 	void outputResults(const std::string& path) const;
+
+	void outputFrames(const std::string& path) const;
 private:
 	//透過設定讓原本沒有偵測到的aruco標記可以被偵測到
 	void rescue(Frame& frame);

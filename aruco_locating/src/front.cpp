@@ -28,28 +28,31 @@ void Front::run(const Source source, const std::string& sourcePath, const bool B
 }
 
 
+void Front::saveFrames(std::string path ) const {
+	if (path == "") path = savePath;
+	std::filesystem::create_directory(path);
+	analyzer.outputFrames(path);
+	std::cout << "save frames successfully: " + path << std::endl;
+}
 
 
 
-void Front::save(const std::string path)  const{
 
-	std::string savePath = "";
-	if (path != "") savePath = path;
-	else {
-		char tt[100];
-		time_t now = time(nullptr);
-		auto tm_info = localtime(&now);
-		strftime(tt, 100, "%Y-%m-%d %H-%M-%S", tm_info);
-		savePath = "saved/"+std::string(tt);
-	}
-	std::filesystem::create_directory(savePath);
-	std::filesystem::create_directory(savePath + "/imgs");
-	analyzer.outputResults(savePath);
-	std::filesystem::copy_file(Params::filePath, savePath+"/params.json", std::filesystem::copy_options::update_existing);
-	std::cout << "save successfully: " + savePath << std::endl;
+void Front::save( std::string path)  const{
+	if (path == "") path=savePath;
+	std::filesystem::create_directory(path);
+	std::filesystem::create_directory(path + "/imgs");
+	analyzer.outputResults(path);
+	std::filesystem::copy_file(Params::filePath, path +"/params.json", std::filesystem::copy_options::update_existing);
+	std::cout << "save successfully: " + path << std::endl;
 }
 
 Front::Front(const std::string& paramsPath, const std::string& settingsPath) {
+	char tt[100];
+	time_t now = time(nullptr);
+	auto tm_info = localtime(&now);
+	strftime(tt, 100, "%Y-%m-%d %H-%M-%S", tm_info);
+	savePath = "saved/" + std::string(tt);
 	Params::load(paramsPath);
 	Settings::load(settingsPath);
 }

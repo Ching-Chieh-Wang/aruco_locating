@@ -117,6 +117,10 @@ void Analysis::outputResults(const std::string& path) const{
 	recorder.output(path);
 }
 
+void Analysis::outputFrames(const std::string& path) const{
+	recorder.outputFrames(path);
+}
+
 void Analysis::rescue(Frame& frame){
 	ArucoDetectionSetting arucoDetectionSetter;
 	arucoDetectionSetter.tune(frame.frameNumber, std::make_unique<cv::Mat>(*frame.img), frame.imgName);
