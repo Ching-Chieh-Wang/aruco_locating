@@ -6,7 +6,7 @@
 // 前端介面
 class ArucoLocating {
 public:
-	ArucoLocating(const std::string& paramsPath="params.json", const std::string& settingsPath="settings.json");
+	ArucoLocating(const std::string& paramsPath="config/params.json", const std::string& settingsPath="config/settings.json");
 	//調整偵測aruco detection的參數
 	void arucoDetectionSet(const Source source, const std::string& sourcePath);
 	// 開始跑

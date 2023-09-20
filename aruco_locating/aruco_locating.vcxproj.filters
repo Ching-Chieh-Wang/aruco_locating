@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>資源檔</Filter>
-    </ClCompile>
     <ClCompile Include="src\aruco_locating.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
@@ -74,6 +71,9 @@
     </ClCompile>
     <ClCompile Include="src\capture.cpp">
       <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="test\main.cpp">
+      <Filter>資源檔</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
