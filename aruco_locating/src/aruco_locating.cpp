@@ -1,5 +1,5 @@
 #include "../pch.h"
-#include "front.h"
+#include "../aruco_locating.h"
 
 
 #include "viz_window.h"
@@ -11,7 +11,7 @@
 
 
 
-void Front::run(const Source source, const std::string& sourcePath, const bool BA , const bool monitor, const bool parallel) {
+void ArucoLocating::run(const Source source, const std::string& sourcePath, const bool BA , const bool monitor, const bool parallel) {
 	std::cout << "proccessing" << std::endl;
 	if (!std::filesystem::is_directory("saved") || !std::filesystem::exists("saved")) { // Check if saved folder exists
 		std::filesystem::create_directory("saved"); // create saved folder
@@ -28,7 +28,7 @@ void Front::run(const Source source, const std::string& sourcePath, const bool B
 }
 
 
-void Front::saveFrames(std::string path ) const {
+void ArucoLocating::saveFrames(std::string path ) const {
 	if (path == "") path = savePath;
 	std::filesystem::create_directory(path);
 	analyzer.outputFrames(path);
@@ -38,7 +38,7 @@ void Front::saveFrames(std::string path ) const {
 
 
 
-void Front::save( std::string path)  const{
+void ArucoLocating::save( std::string path)  const{
 	if (path == "") path=savePath;
 	std::filesystem::create_directory(path);
 	std::filesystem::create_directory(path + "/imgs");
@@ -47,7 +47,7 @@ void Front::save( std::string path)  const{
 	std::cout << "save successfully: " + path << std::endl;
 }
 
-Front::Front(const std::string& paramsPath, const std::string& settingsPath) {
+ArucoLocating::ArucoLocating(const std::string& paramsPath, const std::string& settingsPath) {
 	char tt[100];
 	time_t now = time(nullptr);
 	auto tm_info = localtime(&now);
@@ -57,7 +57,7 @@ Front::Front(const std::string& paramsPath, const std::string& settingsPath) {
 	Settings::load(settingsPath);
 }
 
-void Front::arucoDetectionSet(const Source source, const std::string& sourcePath){
+void ArucoLocating::arucoDetectionSet(const Source source, const std::string& sourcePath){
 	ArucoDetectionSetting arucoDetectionSetter;
 	arucoDetectionSetter.run(source,sourcePath);
 }

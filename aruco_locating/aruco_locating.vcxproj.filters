@@ -15,10 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="aruco_locating.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>資源檔</Filter>
     </ClCompile>
-    <ClCompile Include="src\front.cpp">
+    <ClCompile Include="src\aruco_locating.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
     <ClCompile Include="src\analysis.cpp">
@@ -98,7 +98,7 @@
     <ClInclude Include="include\frame.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
-    <ClInclude Include="include\front.h">
+    <ClInclude Include="include\aruco_locating.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="include\marker.h">
@@ -132,6 +132,9 @@
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="include\pba\g2otypes_marker.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="aruco_locating.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>
