@@ -1,4 +1,4 @@
-#include "../pch.h"
+#include "pch.h"
 #include "viz_window.h"
 #include "settings.h"
 #include "frame.h"

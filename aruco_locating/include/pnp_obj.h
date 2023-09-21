@@ -1,7 +1,7 @@
 #ifndef PNP_OBJ_H
 #define PNP_OBJ_H
 
-#include "../pch.h"
+#include "pch.h"
 #include "settings.h"
 
 class PnPObj {

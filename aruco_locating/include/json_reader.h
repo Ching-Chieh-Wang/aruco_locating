@@ -1,7 +1,7 @@
 #ifndef JSON_READER
 #define JSON_READER
 
-#include "../pch.h"
+#include "pch.h"
 #include "types.h"
 
 class JsonReader {

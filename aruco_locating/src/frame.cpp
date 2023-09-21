@@ -1,4 +1,4 @@
-#include "../pch.h"
+#include "pch.h"
 #include "frame.h"
 
 #include"types.h"

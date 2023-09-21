@@ -1,5 +1,5 @@
 //Á{®ÉjsonÅª¨ú¾¹
-#include "../pch.h"
+#include "pch.h"
 #include "params.h"
 #include "types.h"
 #include "utils.h"

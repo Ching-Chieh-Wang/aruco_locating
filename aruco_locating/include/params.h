@@ -2,7 +2,7 @@
 #define PARAMS_H
 
 
-#include "../pch.h"
+#include "pch.h""
 #include "types.h"
 #include "json_reader.h"
 #include "dictionary.h"

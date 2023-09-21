@@ -1,7 +1,5 @@
-#include "../pch.h"
-#include "../aruco_locating.h"
-
-
+#include "pch.h"
+#include "aruco_locating.h"
 #include "viz_window.h"
 #include "params.h"
 #include "settings.h"

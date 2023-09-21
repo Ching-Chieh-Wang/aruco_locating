@@ -1,4 +1,4 @@
-#include "../pch.h"
+#include "pch.h"
 #include "record.h"
 
 #include "frame.h"

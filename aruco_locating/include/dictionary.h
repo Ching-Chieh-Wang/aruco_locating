@@ -1,7 +1,7 @@
 #ifndef DICTIONARY_H
 #define DICTIONARY_H
 
-#include "../pch.h"
+#include "pch.h"
 #include "types.h"
 
 

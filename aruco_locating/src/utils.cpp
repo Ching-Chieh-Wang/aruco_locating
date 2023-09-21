@@ -1,4 +1,4 @@
-#include "../pch.h"
+#include "pch.h"
 #include "utils.h"
 
 cv::Scalar randColor() {

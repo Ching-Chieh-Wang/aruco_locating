@@ -2,7 +2,7 @@
 #define ARUCO_DETECTION_SETTING_H
 
 
-//#include "../pch.h"
+#include "pch.h"
 #include "types.h"
 #include "marker.h"
 #include "aruco_detection_impl.h"

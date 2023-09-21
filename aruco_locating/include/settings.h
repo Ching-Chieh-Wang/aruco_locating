@@ -2,7 +2,7 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
-#include "../pch.h"
+#include "pch.h"
 #include "json_reader.h"
 #include "types.h"
 

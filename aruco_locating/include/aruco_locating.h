@@ -1,7 +1,8 @@
-#ifndef FRONT_H
-#define FRONT_H
-#include "include/types.h"
-#include "include/analysis.h"
+#ifndef _ARUCO_LOCATING_H
+#define _ARUCO_LOCATING_H
+#include "pch.h"
+#include "types.h"
+#include "analysis.h"
 
 // «eºÝ¤¶­±
 class ArucoLocating {
@@ -19,7 +20,5 @@ public:
 private:
 	std::string savePath;
 	Analysis analyzer;
-
-
 };
 #endif

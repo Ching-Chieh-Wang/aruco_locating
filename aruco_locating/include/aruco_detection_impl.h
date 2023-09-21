@@ -1,7 +1,7 @@
 #ifndef ARUCO_DETECTION_IMPL_H
 #define ARUCO_DETECTION_IMPL_H
 
-#include "../pch.h"
+#include "pch.h"
 #include "types.h"
 
 //ArucoDetection º¾¸Hªºµ{¦¡

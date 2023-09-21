@@ -1,7 +1,7 @@
 #ifndef G2OTYPES_MARKER_H
 #define G2OTYPES_MARKER_H
 
-#include "../pch.h"
+#include "pch.h"
 
 namespace g2o {
 namespace types_six_dof_expmap {

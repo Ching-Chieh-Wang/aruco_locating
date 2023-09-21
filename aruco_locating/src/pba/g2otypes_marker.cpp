@@ -1,4 +1,4 @@
-#include "../pch.h"
+#include "pch.h"
 #include "pba/g2otypes_marker.h"
 
 namespace g2o {

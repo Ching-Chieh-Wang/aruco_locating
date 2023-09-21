@@ -1,4 +1,4 @@
-#include "../pch.h"
+#include "pch.h"
 #include "aruco_detection.h"
 #include "types.h"
 #include "marker.h"

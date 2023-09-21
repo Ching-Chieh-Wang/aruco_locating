@@ -1,4 +1,4 @@
-#include "../pch.h"
+#include "pch.h"
 #include "aruco_detection_impl.h"
 #include "settings.h"
 #include "params.h"

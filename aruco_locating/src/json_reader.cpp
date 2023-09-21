@@ -1,4 +1,4 @@
-#include "../pch.h"
+#include "pch.h"
 #include "json_reader.h"
 #include "utils.h"
 

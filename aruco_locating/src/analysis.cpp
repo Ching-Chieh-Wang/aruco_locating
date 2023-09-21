@@ -1,4 +1,4 @@
-#include "../pch.h"
+#include "pch.h"
 #include "analysis.h"
 #include "capture.h"
 #include "marker.h"

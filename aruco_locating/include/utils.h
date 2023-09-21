@@ -1,7 +1,7 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-#include "../pch.h"
+#include "pch.h"
 
 
 cv::Scalar randColor();

@@ -1,7 +1,7 @@
 #ifndef RECORD_H
 #define RECORD_H
 
-#include "../pch.h"
+#include "pch.h"
 #include "frame.h"
 
 class Record  {
