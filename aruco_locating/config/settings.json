@@ -1,0 +1,24 @@
+{
+   "arucoDetection" : {
+      "adaptiveThreshBlockSize" : 87,
+      "adaptiveThreshC" : 4,
+      "approxPolyDPEpsilonRatio" : 57,
+      "contrastFactor" : -20,
+      "cornerRefineWinsizeRatio" : 60,
+      "cutBoarder" : 20,
+      "detectRegions" : [
+         [
+            [ 0, 0 ],
+            [ 0, 2159 ],
+            [ 3839, 2159 ],
+            [ 3839, 0 ]
+         ]
+      ],
+      "minArea" : 486
+   },
+   "dispBA" : false,
+   "poseEstimation" : {
+      "projectionErrorThresh" : 1.0,
+      "unambiguousErrorRaioThresh" : 1.7320507764816284
+   }
+}
