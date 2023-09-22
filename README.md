@@ -48,9 +48,9 @@ An application that use DSLR camera to track the pose(position and orientation) 
 
 int main(){
 	ArucoLocating arucoLocator;  //5
-	//arucoLocator.arucoDetectionSet(Source::IMAGE, "/imgs"); //6
-	arucoLocator.run(Source::IMAGE, "/imgs", true,false, true);  //7
-	arucoLocator.save("saved"); //8
+	//arucoLocator.arucoDetectionSet(Source::IMAGE, "asset/imgs"); //6
+	arucoLocator.run(Source::IMAGE, "asset/imgs", true,false, true);  //7
+	arucoLocator.save("asset/saved"); //8
 }
 ```
 * Detection Result csv:
