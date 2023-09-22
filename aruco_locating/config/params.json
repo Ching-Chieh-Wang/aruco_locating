@@ -13,7 +13,7 @@
       [ 0.0, 0.0, 1.0 ]
    ],
    "markerSize" : 0.01,
-   "specialMarkerSize" : {
+   "specialMarkerSizes" : {
       "100":0.1,
       "200": 0.2
    }
