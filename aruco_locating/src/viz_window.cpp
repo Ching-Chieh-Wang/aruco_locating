@@ -6,7 +6,7 @@
 
 void VIZWindow::updateWindow(const Frame& frame){
 	_window.removeAllWidgets();
-	cv::viz::WCameraPosition coord(1);
+	cv::viz::WCameraPosition coord(0.3);
 	_window.showWidget("coord", coord);
 	cv::viz::WText imgName(frame.imgName,cv::Point2i(20,20));
 	_window.showWidget("ImgName", imgName);
@@ -15,7 +15,7 @@ void VIZWindow::updateWindow(const Frame& frame){
 		_window.showWidget("Marker" + std::to_string(marker.id), plane,marker.T());
 		cv::viz::WCameraPosition markerPose(marker.size);
 		_window.showWidget("MarkerPose" + std::to_string(marker.id), markerPose, marker.T());
-		cv::viz::WText3D markerID(std::to_string(marker.id), cv::Vec3d(0, 0, 0), marker.size);
+		cv::viz::WText3D markerID(std::to_string(marker.id), cv::Vec3d(0, 0, 0), marker.size*2);
 		_window.showWidget("ID" + std::to_string(marker.id), markerID,marker.T());
 	}
 	show();
