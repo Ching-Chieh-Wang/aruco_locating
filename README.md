@@ -36,7 +36,9 @@ An application that use DSLR camera to track the pose(position and orientation) 
     * sourcePath: folder where the images stored or the path of the video file
     * BA: Turn on/off Bundle Adjustment for optimizing marker pose.
     * monitor: 3D Visualize each img/frame marker detection and tracking result.
-    * parallel: Allow Multiprocess for better efficiency. 
+    * parallel: Allow Multiprocess for better efficiency.
+      
+	Hint: When parallel is on, monitor cannot be switched on.
 8.  Declare ArucoLocating.save(path): Save the marker tracking result as csv file in specificed path.  
 
 ```cpp
@@ -51,8 +53,10 @@ int main(){
 	arucoLocator.save("saved"); //8
 }
 ```
-
+* Detection Result csv:
 ![overlap_elimination](https://github.com/Ching-Chieh-Wang/aruco_locating/assets/81002444/fce0f076-e3e5-4e82-9231-f0045b67ea91)
+* Visualziation:
+![visualize](https://github.com/Ching-Chieh-Wang/aruco_locating/assets/81002444/fccd40b3-30c9-45bf-b9b8-e4f8ac754646)
 
 # Reference
 1.  Garrido-Jurado, Sergio, et al. "Automatic generation and detection of highly reliable fiducial markers under occlusion." Pattern Recognition 47.6 (2014): 2280-2292.
